@@ -1,7 +1,8 @@
 # backend
 Run server with
 `python server.py`
-Post with ref_id & image
+
+`Post` with ref_id & image
 
 # colorization
 put
