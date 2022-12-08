@@ -11,12 +11,15 @@ def img_save():
     ref_id = request.form.get('ref_id')
 
     filename = secure_filename(image_file.filename)
+    path, file_ext = os.path.splitext(filename)
     pathname = 'saved_img/'
     os.makedirs(pathname, exist_ok=True)
     image_file.save(pathname + filename)
+    filename_new = 'input' + file_ext
+    os.rename(pathname + filename, pathname + filename_new)
 
-    # return send_file(pathname+filename, mimetype='image/jpeg')
-    return ref_id
+    return send_file(pathname + filename_new, mimetype='image/jpeg')
+    # return ref_id
 
 
 if __name__ == "__main__":
