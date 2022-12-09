@@ -7,3 +7,14 @@ data/vgg19_conv.pth
 data/vgg19_gray.pth
 .DS_Store
 checkpoints/.DS_Store
+__pycache__/colorize_img.cpython-310.pyc
+lib/__pycache__/__init__.cpython-310.pyc
+lib/__pycache__/functional.cpython-310.pyc
+lib/__pycache__/TestTransforms.cpython-310.pyc
+models/__pycache__/ColorVidNet.cpython-310.pyc
+models/__pycache__/FrameColor.cpython-310.pyc
+models/__pycache__/NonlocalNet.cpython-310.pyc
+models/__pycache__/vgg19_gray.cpython-310.pyc
+utils/__pycache__/__init__.cpython-310.pyc
+utils/__pycache__/util.cpython-310.pyc
+utils/__pycache__/util_distortion.cpython-310.pyc
