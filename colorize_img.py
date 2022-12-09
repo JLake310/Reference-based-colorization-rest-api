@@ -15,12 +15,6 @@ from utils.util import (batch_lab2rgb_transpose_mc, mkdir_if_not, save_frames, t
 from utils.util_distortion import Normalize, RGB2Lab, ToTensor
 
 
-# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-# torch.cuda.set_device(0)
-# torch.load(map_location=torch.device('cpu'))
-
-
 def colorize_image(opt, input_path, reference_file, output_path, nonlocal_net, colornet, vggnet):
     mkdir_if_not(output_path)
     transform = transforms.Compose(
@@ -82,49 +76,49 @@ def colorize_image(opt, input_path, reference_file, output_path, nonlocal_net, c
     output_img = Image.fromarray(IA_predict_rgb)
     output_img = output_img.resize((width, height))
     save_frames(output_img, output_path, image_name="output.jpg")
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--frame_propagate", default=False, type=bool)
-    parser.add_argument("--image_size", type=int, default=[216 * 2, 384 * 2])
-    parser.add_argument("--cuda", action="store_false")
-    parser.add_argument("--gpu_ids", type=str, default="0")
-    parser.add_argument("--clip_path", type=str, default="./images/input")
-    parser.add_argument("--ref_path", type=str, default="./images/ref")
-    parser.add_argument("--output_path", type=str, default="./images/output")
-    opt = parser.parse_args()
-
-    nonlocal_net = WarpNet(1)
-    colornet = ColorVidNet(7)
-    vggnet = VGG19_pytorch()
-    vggnet.load_state_dict(torch.load("data/vgg19_conv.pth"))
-
-    for param in vggnet.parameters():
-        param.requires_grad = False
-
-    nonlocal_test_path = os.path.join("checkpoints/", "video_moredata_l1/nonlocal_net_iter_76000.pth")
-    color_test_path = os.path.join("checkpoints/", "video_moredata_l1/colornet_iter_76000.pth")
-
-    nonlocal_net.load_state_dict(torch.load(nonlocal_test_path, map_location=torch.device('cpu')))
-    colornet.load_state_dict(torch.load(color_test_path, map_location=torch.device('cpu')))
-
-    nonlocal_net.eval()
-    colornet.eval()
-    vggnet.eval()
-    nonlocal_net.cpu()
-    colornet.cpu()
-    vggnet.cpu()
-
-    ref_id = 1
-    ref_name = str(ref_id) + ".jpg"
-
-    colorize_image(
-        opt,
-        opt.clip_path,
-        os.path.join(opt.ref_path, ref_name),
-        opt.output_path,
-        nonlocal_net,
-        colornet,
-        vggnet,
-    )
+#
+#
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("--frame_propagate", default=False, type=bool)
+#     parser.add_argument("--image_size", type=int, default=[216 * 2, 384 * 2])
+#     parser.add_argument("--cuda", action="store_false")
+#     parser.add_argument("--gpu_ids", type=str, default="0")
+#     parser.add_argument("--clip_path", type=str, default="./images/input")
+#     parser.add_argument("--ref_path", type=str, default="./images/ref")
+#     parser.add_argument("--output_path", type=str, default="./images/output")
+#     opt = parser.parse_args()
+#
+#     nonlocal_net = WarpNet(1)
+#     colornet = ColorVidNet(7)
+#     vggnet = VGG19_pytorch()
+#     vggnet.load_state_dict(torch.load("data/vgg19_conv.pth"))
+#
+#     for param in vggnet.parameters():
+#         param.requires_grad = False
+#
+#     nonlocal_test_path = os.path.join("checkpoints/", "video_moredata_l1/nonlocal_net_iter_76000.pth")
+#     color_test_path = os.path.join("checkpoints/", "video_moredata_l1/colornet_iter_76000.pth")
+#
+#     nonlocal_net.load_state_dict(torch.load(nonlocal_test_path, map_location=torch.device('cpu')))
+#     colornet.load_state_dict(torch.load(color_test_path, map_location=torch.device('cpu')))
+#
+#     nonlocal_net.eval()
+#     colornet.eval()
+#     vggnet.eval()
+#     nonlocal_net.cpu()
+#     colornet.cpu()
+#     vggnet.cpu()
+#
+#     ref_id = 1
+#     ref_name = str(ref_id) + ".jpg"
+#
+#     colorize_image(
+#         opt,
+#         opt.clip_path,
+#         os.path.join(opt.ref_path, ref_name),
+#         opt.output_path,
+#         nonlocal_net,
+#         colornet,
+#         vggnet,
+#     )
