@@ -1,6 +1,9 @@
 import os
 from flask import Flask, request, send_file
 from werkzeug.utils import secure_filename
+import numpy as np
+import cv2
+from gaussian import get_gaussian
 
 app = Flask(__name__)
 
@@ -17,8 +20,7 @@ def img_save():
     image_file.save(pathname + filename)
     filename_new = 'input' + file_ext
     os.rename(pathname + filename, pathname + filename_new)
-
-    return send_file(pathname + filename_new, mimetype='image/jpeg')
+    return send_file('output.jpg', mimetype='image/jpeg')
     # return ref_id
 
 
