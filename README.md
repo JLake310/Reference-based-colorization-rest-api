@@ -1,10 +1,5 @@
-# backend
-Run server with
-`python server.py`
-
-`Post` with ref_id & image
-
-# colorization
+# Backend
+### Pretrained model
 put
 [colornet_iter_76000.pth](https://drive.google.com/file/d/1OszomA-HnE1ss5hJ1lY40CqJsZJIrJoT/view?usp=sharing)
 in `/checkpoints/video_moredata_l1`
@@ -15,6 +10,16 @@ put
 in 
 `/colorization/data`
 
-Run with
+### Requirements
 `pip install -r requirements.txt`
-`python main.py`
+
+
+### Run server
+
+`python server.py`
+
+
+### How to use
+`Post` at `/colorization` with body including `ref_id(1~10) & image`
+
+`Response` : Reference-based colorized image
