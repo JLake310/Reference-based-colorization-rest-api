@@ -14,12 +14,11 @@ from models.NonlocalNet import VGG19_pytorch, WarpNet
 from utils.util import (batch_lab2rgb_transpose_mc, mkdir_if_not, save_frames, tensor_lab2rgb, uncenter_l)
 from utils.util_distortion import Normalize, RGB2Lab, ToTensor
 
+
 # os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # torch.cuda.set_device(0)
 # torch.load(map_location=torch.device('cpu'))
-
-
 
 
 def colorize_image(opt, input_path, reference_file, output_path, nonlocal_net, colornet, vggnet):
