@@ -1,14 +1,9 @@
 
 colorization/checkpoints/video_moredata_l1/colornet_iter_76000.pth
-colorization/checkpoints/video_moredata_l1/colornet_iter_76000.pth
 colorization/data/vgg19_conv.pth
 colorization/data/vgg19_gray.pth
 checkpoints/video_moredata_l1/colornet_iter_76000.pth
 data/vgg19_conv.pth
 data/vgg19_gray.pth
-.DS_Store
-checkpoints/.DS_Store
-.DS_Store
-checkpoints/.DS_Store
 .DS_Store
 checkpoints/.DS_Store
