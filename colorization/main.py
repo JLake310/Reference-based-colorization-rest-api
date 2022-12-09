@@ -1,21 +1,18 @@
 from __future__ import print_function
+
 import argparse
-import glob
 import os
-import time
-import cv2
-import numpy as np
+
 import torch
-import torch.backends.cudnn as cudnn
 import torchvision.transforms as transform_lib
 from PIL import Image, ImageOps
-from tqdm import tqdm
+
 import lib.TestTransforms as transforms
 from models.ColorVidNet import ColorVidNet
 from models.FrameColor import frame_colorization
 from models.NonlocalNet import VGG19_pytorch, WarpNet
-from utils.util import (batch_lab2rgb_transpose_mc, folder2vid, mkdir_if_not, save_frames, tensor_lab2rgb, uncenter_l)
-from utils.util_distortion import CenterPad, Normalize, RGB2Lab, ToTensor
+from utils.util import (batch_lab2rgb_transpose_mc, mkdir_if_not, save_frames, tensor_lab2rgb, uncenter_l)
+from utils.util_distortion import Normalize, RGB2Lab, ToTensor
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
