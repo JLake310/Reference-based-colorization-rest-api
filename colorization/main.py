@@ -14,9 +14,12 @@ from models.NonlocalNet import VGG19_pytorch, WarpNet
 from utils.util import (batch_lab2rgb_transpose_mc, mkdir_if_not, save_frames, tensor_lab2rgb, uncenter_l)
 from utils.util_distortion import Normalize, RGB2Lab, ToTensor
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-torch.cuda.set_device(0)
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# torch.cuda.set_device(0)
+# torch.load(map_location=torch.device('cpu'))
+
+
 
 
 def colorize_image(opt, input_path, reference_file, output_path, nonlocal_net, colornet, vggnet):
@@ -28,7 +31,7 @@ def colorize_image(opt, input_path, reference_file, output_path, nonlocal_net, c
     reference_img = Image.open(reference_file)
     reference_img = reference_img.convert("RGB")
 
-    IB_lab_large = transform(reference_img).unsqueeze(0).cuda()
+    IB_lab_large = transform(reference_img).unsqueeze(0).cpu()
 
     IB_lab = torch.nn.functional.interpolate(IB_lab_large, scale_factor=0.5, mode="bilinear")
 
@@ -45,11 +48,11 @@ def colorize_image(opt, input_path, reference_file, output_path, nonlocal_net, c
     width, height = input_img.size
     input_img = input_img.convert("RGB")
 
-    IA_lab_large = transform(input_img).unsqueeze(0).cuda()
+    IA_lab_large = transform(input_img).unsqueeze(0).cpu()
     IA_lab = torch.nn.functional.interpolate(IA_lab_large, scale_factor=0.5, mode="bilinear")
     IA_l = IA_lab[:, 0:1, :, :]
 
-    I_last_lab_predict = torch.zeros_like(IA_lab).cuda()
+    I_last_lab_predict = torch.zeros_like(IA_lab).cpu()
 
     # start the colorization
     with torch.no_grad():
@@ -104,15 +107,15 @@ if __name__ == "__main__":
     nonlocal_test_path = os.path.join("checkpoints/", "video_moredata_l1/nonlocal_net_iter_76000.pth")
     color_test_path = os.path.join("checkpoints/", "video_moredata_l1/colornet_iter_76000.pth")
 
-    nonlocal_net.load_state_dict(torch.load(nonlocal_test_path))
-    colornet.load_state_dict(torch.load(color_test_path))
+    nonlocal_net.load_state_dict(torch.load(nonlocal_test_path, map_location=torch.device('cpu')))
+    colornet.load_state_dict(torch.load(color_test_path, map_location=torch.device('cpu')))
 
     nonlocal_net.eval()
     colornet.eval()
     vggnet.eval()
-    nonlocal_net.cuda()
-    colornet.cuda()
-    vggnet.cuda()
+    nonlocal_net.cpu()
+    colornet.cpu()
+    vggnet.cpu()
 
     ref_id = 1
     ref_name = str(ref_id) + ".jpg"
