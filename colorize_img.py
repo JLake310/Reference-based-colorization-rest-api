@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-import argparse
 import os
 
 import torch
@@ -8,9 +7,7 @@ import torchvision.transforms as transform_lib
 from PIL import Image, ImageOps
 
 import lib.TestTransforms as transforms
-from models.ColorVidNet import ColorVidNet
 from models.FrameColor import frame_colorization
-from models.NonlocalNet import VGG19_pytorch, WarpNet
 from utils.util import (batch_lab2rgb_transpose_mc, mkdir_if_not, save_frames, tensor_lab2rgb, uncenter_l)
 from utils.util_distortion import Normalize, RGB2Lab, ToTensor
 
