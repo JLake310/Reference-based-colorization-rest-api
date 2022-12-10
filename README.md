@@ -20,6 +20,17 @@ in
 
 
 ### How to use
-`Post` at `/colorization` with body including `ref_id(1~10) & image`
+`Post` at `/colorization` 
+
+with body including 
+```
+ref_id      => integer(1~10)
+
+image       => Image
+
+ref_option  => integer(0~1, 0:original ref, 1:user ref)
+
+user_ref    => Image
+```
 
 `Response` : Reference-based colorized image
