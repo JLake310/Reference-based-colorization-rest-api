@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 @app.route('/colorization', methods=['POST'])
 def img_save():
+
     # Get input image
     image_file = request.files.get('input', '')
     filename = secure_filename(image_file.filename)
@@ -91,7 +92,6 @@ if __name__ == "__main__":
     nonlocal_net.cpu()
     colornet.cpu()
     vggnet.cpu()
-
     print("Model loaded")
 
     # Start app
