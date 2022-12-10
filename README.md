@@ -20,7 +20,7 @@ in
 
 
 ### How to use
-`Post` at `/colorization` 
+`Post` at `{domain}/colorization` 
 
 with body including 
 ```
