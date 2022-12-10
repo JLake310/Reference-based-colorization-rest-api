@@ -77,12 +77,10 @@ class ColorVidNet(nn.Module):
         self.relu10_1_comb = nn.ReLU()
         self.relu10_2 = nn.LeakyReLU(0.2, True)
 
-        print("replace all deconv with [nearest + conv]")
         self.conv8_1 = nn.Sequential(nn.Upsample(scale_factor=2, mode="nearest"), nn.Conv2d(512, 256, 3, 1, 1))
         self.conv9_1 = nn.Sequential(nn.Upsample(scale_factor=2, mode="nearest"), nn.Conv2d(256, 128, 3, 1, 1))
         self.conv10_1 = nn.Sequential(nn.Upsample(scale_factor=2, mode="nearest"), nn.Conv2d(128, 128, 3, 1, 1))
 
-        print("replace all batchnorm with instancenorm")
         self.conv1_2norm = nn.InstanceNorm2d(64)
         self.conv2_2norm = nn.InstanceNorm2d(128)
         self.conv3_3norm = nn.InstanceNorm2d(256)
