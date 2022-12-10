@@ -1,4 +1,4 @@
-import argparse
+import time
 import os
 import torch
 from flask import Flask, request, send_file
@@ -12,17 +12,6 @@ first = True
 
 
 def model_load():
-    # Set arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--frame_propagate", default=False, type=bool)
-    parser.add_argument("--image_size", type=int, default=[216 * 2, 384 * 2])
-    parser.add_argument("--cuda", action="store_false")
-    parser.add_argument("--gpu_ids", type=str, default="0")
-    parser.add_argument("--clip_path", type=str, default="./images/input")
-    parser.add_argument("--ref_path", type=str, default="./images/ref")
-    parser.add_argument("--output_path", type=str, default="./images/output")
-    opt = parser.parse_args()
-
     # Load networks & models
     print("Loading models ...")
     nonlocal_net = WarpNet(1)
@@ -46,15 +35,17 @@ def model_load():
     colornet.cpu()
     vggnet.cpu()
     print("Model loaded")
-    return opt, nonlocal_net, colornet, vggnet
+    return nonlocal_net, colornet, vggnet
 
 
 @app.route('/colorization', methods=['POST'])
-def img_save():
-    global opt, nonlocal_net, colornet, vggnet, first
+def colorize_img():
+    # Load model once
+    global nonlocal_net, colornet, vggnet, first
     if first:
-        opt, nonlocal_net, colornet, vggnet = model_load()
+        nonlocal_net, colornet, vggnet = model_load()
         first = False
+
     # Get input image
     image_file = request.files.get('input', '')
     filename = secure_filename(image_file.filename)
@@ -85,18 +76,19 @@ def img_save():
 
     # Start colorization
     print("Colorizing ...")
+    start = time.time()
     colorize_image(
-        opt,
-        opt.clip_path,
-        os.path.join(opt.ref_path, ref_name),
-        opt.output_path,
+        "./images/input",
+        os.path.join("./images/ref", ref_name),
+        "./images/output",
         nonlocal_net,
         colornet,
         vggnet,
     )
-    print("Colorization done !")
+    end = time.time()
+    print("Colorization done in "+str(round(end-start, 2))+" sec")
     # Send response
-    print("Sending response")
+    print("Send response")
     return send_file('images/output/output.jpg', mimetype='image/jpeg')
 
 
