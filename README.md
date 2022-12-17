@@ -11,7 +11,7 @@ in
 `/colorization/data`
 
 ### Requirements
-`pip install -r requirements.txt`
+`pip install -r requirements-{OS}.txt`
  
 
 ### Run server
