@@ -1,6 +1,6 @@
 # Backend
 ### Pretrained model
-put
+put 
 [colornet_iter_76000.pth](https://drive.google.com/file/d/1OszomA-HnE1ss5hJ1lY40CqJsZJIrJoT/view?usp=sharing)
 in `/checkpoints/video_moredata_l1`
  
