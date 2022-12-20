@@ -34,3 +34,7 @@ user_ref    => Image
 ```
 
 `Response` : Reference-based colorized image
+
+### Result
+![image](https://user-images.githubusercontent.com/86578246/208661319-a2090179-5b58-400f-a966-a6e57cbc67d5.png)
+
