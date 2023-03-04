@@ -1,4 +1,4 @@
-
+.DS_Store
 colorization/checkpoints/video_moredata_l1/colornet_iter_76000.pth
 colorization/data/vgg19_conv.pth
 colorization/data/vgg19_gray.pth
@@ -18,3 +18,5 @@ models/__pycache__/vgg19_gray.cpython-310.pyc
 utils/__pycache__/__init__.cpython-310.pyc
 utils/__pycache__/util.cpython-310.pyc
 utils/__pycache__/util_distortion.cpython-310.pyc
+.idea/
+
