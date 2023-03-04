@@ -20,3 +20,7 @@ utils/__pycache__/util.cpython-310.pyc
 utils/__pycache__/util_distortion.cpython-310.pyc
 .idea/
 
+.idea/backend.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
