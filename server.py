@@ -84,6 +84,7 @@ def colorize_img():
         nonlocal_net,
         colornet,
         vggnet,
+        file_ext
     )
     end = time.time()
     print("Colorization done in "+str(round(end-start, 2))+" sec")
