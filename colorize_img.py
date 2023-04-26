@@ -12,7 +12,7 @@ from utils.util import (batch_lab2rgb_transpose_mc, mkdir_if_not, save_frames, t
 from utils.util_distortion import Normalize, RGB2Lab, ToTensor
 
 
-def colorize_image(input_path, reference_file, output_path, nonlocal_net, colornet, vggnet):
+def colorize_image(input_path, reference_file, output_path, nonlocal_net, colornet, vggnet, ext):
     mkdir_if_not(output_path)
     transform = transforms.Compose(
         [transform_lib.Resize((216 * 2, 384 * 2)), RGB2Lab(), ToTensor(), Normalize()]
@@ -32,7 +32,7 @@ def colorize_image(input_path, reference_file, output_path, nonlocal_net, colorn
         I_reference_rgb = tensor_lab2rgb(torch.cat((uncenter_l(I_reference_l), I_reference_ab), dim=1))
         features_B = vggnet(I_reference_rgb, ["r12", "r22", "r32", "r42", "r52"], preprocess=True)
 
-    input_img = Image.open(os.path.join(input_path, "input.jpg"))
+    input_img = Image.open(os.path.join(input_path, "input" + ext))
     input_img = ImageOps.exif_transpose(input_img)
 
     width, height = input_img.size
