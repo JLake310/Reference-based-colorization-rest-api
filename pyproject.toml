@@ -8,10 +8,7 @@ packages = [{include = "reference_based_colorization_rest_api"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-torch = "1.12.1"
 flask = "2.2.2"
-torchvision = "0.13.1"
-opencv-python = "4.6.0.66"
 matplotlib = "3.6.2"
 scikit-image = "0.19.3"
 numba = "0.56.2"
